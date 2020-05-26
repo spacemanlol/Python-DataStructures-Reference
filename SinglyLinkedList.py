@@ -154,6 +154,34 @@ class SinglyLinkedList:
 
         return True
 
+    # Removing a node from the Linked List at a specific index
+    def remove(self, index):
+        # Value to be removed
+        toRemove = None
+
+        # If the index is less than zero or greater than the length, return undefined
+        if index < 0 or index >= self.length:
+            return toRemove
+
+        # If the index is the same as the length-1, pop
+        if index == self.length - 1:
+            toRemove = self.pop()
+        # If the index is 0, use shift
+        elif index == 0:
+            toRemove = self.shift()
+        else:
+            # Otherwise, using the get method, access the node at index - 1
+            getValue = self.get(index - 1)
+
+            # Value to be removed
+            toRemove = getValue.next
+
+            # Set the next property on that node to be the next of the next node
+            getValue.next = getValue.next.next
+
+        self.length -= 1
+        return toRemove
+
 
 
 newList = SinglyLinkedList()
@@ -165,6 +193,6 @@ newList.push("4")
 
 newList.display_list()
 
-newList.insert(0, "100")
 
+newList.remove(3)
 newList.display_list()
