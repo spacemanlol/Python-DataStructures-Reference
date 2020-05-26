@@ -6,11 +6,13 @@ class Node:
         self.next = None
 
 class SinglyLinkedList:
+    # Default Constructor
     def __init__(self):
         self.head = None
         self.tail = None
         self.length = 0
 
+    # Add to end of linked list
     def push(self, data):
         # Create a new node using the value passed to the function
         newNode = Node(data)
@@ -33,6 +35,7 @@ class SinglyLinkedList:
 
         return SinglyLinkedList
 
+    # Pop last element in linked list
     def pop(self):
         # If there are no nodes in the list, return undefined
         if not self.head:
@@ -182,6 +185,27 @@ class SinglyLinkedList:
         self.length -= 1
         return toRemove
 
+    # Reversing Linked List In Place
+    def reverse(self):
+        # Initialize node variable
+        node = self.head
+
+        # Swap head and tail
+        self.head, self.tail = self.tail, self.head
+
+        # We need prev to be null because we need to make sure the end of the list is null
+        prev = None
+        next = None
+
+        # Rebuild list in backwards order
+        for i in range(self.length):
+            next = node.next
+            node.next = prev
+            prev = node
+            node = next
+
+        return SinglyLinkedList
+
 
 
 newList = SinglyLinkedList()
@@ -194,5 +218,5 @@ newList.push("4")
 newList.display_list()
 
 
-newList.remove(3)
+newList.reverse()
 newList.display_list()
