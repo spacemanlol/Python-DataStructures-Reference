@@ -56,6 +56,7 @@ class SinglyLinkedList:
         # Decrement Length By One
         self.length -= 1
 
+    # Remove node from the beginning of the linked list
     def display_list(self):
         # Print List to Console
         current = self.head
@@ -66,6 +67,7 @@ class SinglyLinkedList:
 
         print(toString + "]")
 
+    # Remove node from the beginning of the linked list
     def shift(self):
         if self.length == 0:
             return None
@@ -100,6 +102,7 @@ class SinglyLinkedList:
             self.head = newNode
         return SinglyLinkedList
 
+    # Get value at specific index within linked list
     def get(self, index):
         if index > self.length or index < 0:
             return None
@@ -110,10 +113,48 @@ class SinglyLinkedList:
 
         return current
 
+    # Set Value at specific index within the linked list
     def set(self, index, value):
         getVal = self.get(index)
         if(getVal): getVal.data = value
         return getVal
+
+    # Adding a node to the linked list at a specific position
+    def insert(self, index, data):
+
+        # if the index less than zero or greater than the length, return false
+        if index < 0 or index > self.length:
+            return False
+
+        # if the index is the same as the length, push a new node to the end of the list
+        if index == self.length:
+            self.push(data)
+            return True
+
+        # if the index is 0, unshift a new node to the start of the list
+        if index == 0:
+            self.unshift(data)
+            return True
+
+        # Create new node
+        newNode = Node(data)
+
+        # Otherwise, using the get method, access the node at the [index - 1]
+        getValue = self.get(index - 1)
+
+        # Set the next property on that node to be the new node
+        next = getValue.next
+        getValue.next = newNode
+
+        # Set the property on the new node to be the previous next
+        newNode.next = next
+
+        # Increment Length
+        self.length += 1
+
+        return True
+
+
 
 newList = SinglyLinkedList()
 
@@ -124,8 +165,6 @@ newList.push("4")
 
 newList.display_list()
 
-newList.set(0, "100")
+newList.insert(0, "100")
 
 newList.display_list()
-
-print ( newList.get(0).data )
